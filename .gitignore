@@ -10,3 +10,5 @@
 !.github/
 !.github/workflows/
 !.github/workflows/ci.yaml
+!.chezmoiroot
+!home/
