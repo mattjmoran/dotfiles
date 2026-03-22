@@ -1,0 +1,9 @@
+*
+
+!.gitignore
+!.editorconfig
+!mise.toml
+!lefthook.yaml
+!dprint.json
+!LICENSE
+!README.md

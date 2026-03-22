@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: true
+  commands:
+    dprint:
+      glob: "*.{json,yaml,toml,md,sh}"
+      run: mise exec -- dprint check {staged_files}
+    rumdl:
+      glob: "*.md"
+      run: mise exec -- rumdl check {staged_files}
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: mise exec -- cog verify --file {1}
