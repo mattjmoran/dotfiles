@@ -7,3 +7,6 @@
 !dprint.json
 !LICENSE
 !README.md
+!.github/
+!.github/workflows/
+!.github/workflows/ci.yaml
