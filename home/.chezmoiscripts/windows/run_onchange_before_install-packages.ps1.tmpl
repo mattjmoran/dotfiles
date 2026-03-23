@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "windows" -}}
+{{ range .packages.windows.winget -}}
+winget install --exact --id {{ . }} --accept-source-agreements --accept-package-agreements
+{{ end -}}
+{{ end -}}

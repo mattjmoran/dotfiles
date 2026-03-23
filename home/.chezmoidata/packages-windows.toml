@@ -1,0 +1,2 @@
+[packages.windows]
+winget = ["LibreWolf.LibreWolf", "topgrade-rs.topgrade"]

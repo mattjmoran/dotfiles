@@ -1,0 +1,3 @@
+[packages.linux]
+pacman = []
+aur = ["librewolf", "topgrade"]
