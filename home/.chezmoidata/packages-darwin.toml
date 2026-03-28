@@ -1,4 +1,4 @@
 [packages.darwin]
 taps = []
-brews = ["topgrade"]
+brews = []
 casks = ["librewolf"]
