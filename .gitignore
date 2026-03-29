@@ -7,22 +7,16 @@
 !dprint.json
 !LICENSE
 !README.md
+
 !.github/
 !.github/workflows/
-!.github/workflows/ci.yaml
+!.github/workflows/*
 
 !.chezmoiroot
 
 !home/
 !home/.chezmoidata/
-!home/.chezmoidata/packages-darwin.toml
-!home/.chezmoidata/packages-linux.toml
-!home/.chezmoidata/packages-windows.toml
-
+!home/.chezmoidata/*
 !home/.chezmoiscripts/
-!home/.chezmoiscripts/darwin/
-!home/.chezmoiscripts/darwin/run_onchange_before_install-packages.sh.tmpl
-!home/.chezmoiscripts/linux/
-!home/.chezmoiscripts/linux/run_onchange_before_install-packages.sh.tmpl
-!home/.chezmoiscripts/windows/
-!home/.chezmoiscripts/windows/run_onchange_before_install-packages.ps1.tmpl
+!home/.chezmoiscripts/*/
+!home/.chezmoiscripts/**
