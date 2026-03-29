@@ -1,5 +1,9 @@
 {{- if eq .chezmoi.os "windows" -}}
+# packages hash: {{ include ".chezmoidata/packages-windows.toml" | sha256sum }}
+$ErrorActionPreference = "Stop"
+
 {{ range .packages.windows.winget -}}
-winget install --exact --id {{ . }} --accept-source-agreements --accept-package-agreements
+winget install --exact --id {{ . }} --silent --accept-source-agreements --accept-package-agreements --disable-interactivity --no-upgrade
+if ($LASTEXITCODE -notin 0, -1978335135, -1978335189) { exit $LASTEXITCODE }
 {{ end -}}
 {{ end -}}

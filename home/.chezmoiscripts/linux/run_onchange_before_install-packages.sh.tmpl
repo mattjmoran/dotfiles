@@ -1,5 +1,6 @@
 {{- if eq .chezmoi.os "linux" -}}
 #!/usr/bin/env bash
+# packages hash: {{ include ".chezmoidata/packages-linux.toml" | sha256sum }}
 set -euo pipefail
 
 {{ if .packages.linux.pacman -}}
@@ -7,10 +8,6 @@ sudo pacman -S --needed --noconfirm {{ range .packages.linux.pacman }}{{ . }} {{
 {{ end -}}
 
 {{ if .packages.linux.aur -}}
-if command -v paru &>/dev/null; then
-  paru -S --needed --noconfirm {{ range .packages.linux.aur }}{{ . }} {{ end }}
-elif command -v yay &>/dev/null; then
-  yay -S --needed --noconfirm {{ range .packages.linux.aur }}{{ . }} {{ end }}
-fi
+paru -S --needed --noconfirm --sudoloop {{ range .packages.linux.aur }}{{ . }} {{ end }}
 {{ end -}}
 {{ end -}}
