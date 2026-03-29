@@ -9,6 +9,12 @@ pre-commit:
     rumdl:
       glob: "*.md"
       run: mise exec -- rumdl check {staged_files}
+    shellcheck:
+      glob: ".mise/tasks/**/*"
+      run: mise run lint:shell
+    chezmoi:
+      glob: "home/**/*.tmpl"
+      run: mise run lint:chezmoi
 
 commit-msg:
   commands:

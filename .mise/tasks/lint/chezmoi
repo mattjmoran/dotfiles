@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#MISE description="Validate chezmoi templates and shellcheck rendered scripts"
+set -euo pipefail
+
+failed=0
+
+if [[ ! -d home/.chezmoiscripts ]]; then
+  echo "lint:chezmoi: home/.chezmoiscripts not found" >&2
+  exit 1
+fi
+
+while IFS= read -r -d '' tmpl; do
+  if ! rendered=$(chezmoi execute-template --source home -f "$tmpl"); then
+    echo "lint:chezmoi: $tmpl: template rendering failed" >&2
+    failed=1
+  elif [[ "$tmpl" == *.sh.tmpl ]] && [ -n "$rendered" ]; then
+    if ! printf '%s\n' "$rendered" | shellcheck --shell bash -; then
+      echo "lint:chezmoi: $tmpl: shellcheck failed" >&2
+      failed=1
+    fi
+  fi
+done < <(find home/.chezmoiscripts -name '*.tmpl' -print0)
+
+if ! chezmoi execute-template --source home --init \
+  --promptString "name=John Doe" --promptString email=john@example.com \
+  -f home/.chezmoi.toml.tmpl >/dev/null; then
+  echo "lint:chezmoi: home/.chezmoi.toml.tmpl: template rendering failed" >&2
+  failed=1
+fi
+
+exit "$failed"

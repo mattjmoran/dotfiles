@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#MISE description="Shellcheck mise task scripts"
+set -euo pipefail
+
+if [[ ! -d .mise/tasks ]]; then
+  echo "lint:shell: .mise/tasks not found" >&2
+  exit 1
+fi
+
+find .mise/tasks -type f -exec shellcheck {} +
