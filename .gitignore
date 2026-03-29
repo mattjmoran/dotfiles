@@ -12,6 +12,10 @@
 !.github/workflows/
 !.github/workflows/*
 
+!.mise/
+!.mise/tasks/
+!.mise/tasks/**
+
 !.chezmoiroot
 
 !home/

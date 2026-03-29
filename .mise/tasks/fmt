@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Auto-format files"
+set -euo pipefail
+
+dprint fmt

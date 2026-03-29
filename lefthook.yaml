@@ -2,7 +2,9 @@ pre-commit:
   parallel: true
   commands:
     dprint:
-      glob: "*.{json,yaml,toml,md,sh}"
+      glob:
+        - "*.{json,yaml,toml,md,sh}"
+        - ".mise/tasks/**/*"
       run: mise exec -- dprint check {staged_files}
     rumdl:
       glob: "*.md"

@@ -12,19 +12,3 @@ chezmoi = "latest"
 [tasks.lint]
 description = "Run all linters"
 depends = ["lint:*"]
-
-[tasks."lint:format"]
-description = "Check formatting"
-run = "dprint check"
-
-[tasks."lint:markdown"]
-description = "Lint markdown files"
-run = "rumdl check ."
-
-[tasks.fmt]
-description = "Auto-format files"
-run = "dprint fmt"
-
-[tasks.update]
-description = "Update all tools and plugins"
-run = ["mise upgrade", "dprint config update"]

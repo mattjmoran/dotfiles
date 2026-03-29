@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE description="Update all tools and plugins"
+set -euo pipefail
+
+mise upgrade
+dprint config update
