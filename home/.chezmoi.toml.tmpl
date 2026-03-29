@@ -1,0 +1,13 @@
+{{- $name := "" -}}
+{{- $email := "" -}}
+{{- if stdinIsATTY -}}
+{{-   $name = promptStringOnce . "name" "Full name" -}}
+{{-   $email = promptStringOnce . "email" "Email address" -}}
+{{- else -}}
+{{-   $name = .name -}}
+{{-   $email = .email -}}
+{{- end -}}
+
+[data]
+name = {{ $name | quote }}
+email = {{ $email | quote }}
