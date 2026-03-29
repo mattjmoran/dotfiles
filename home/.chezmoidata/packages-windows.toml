@@ -1,2 +1,2 @@
 [packages.windows]
-winget = ["LibreWolf.LibreWolf"]
+winget = ["Bitwarden.CLI", "LibreWolf.LibreWolf"]

@@ -1,4 +1,4 @@
 [packages.darwin]
 taps = []
-brews = []
+brews = ["bitwarden-cli"]
 casks = ["librewolf"]
