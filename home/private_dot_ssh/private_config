@@ -1,0 +1,8 @@
+Host *
+    IdentitiesOnly yes
+    AddKeysToAgent yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    IgnoreUnknown UseKeychain
+    UseKeychain yes
+    IdentityFile ~/.ssh/id_ed25519
