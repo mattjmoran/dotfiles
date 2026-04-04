@@ -2,27 +2,38 @@
 #MISE description="Validate chezmoi templates and shellcheck rendered scripts"
 set -euo pipefail
 
-failed=0
-
-if [[ ! -d home/.chezmoiscripts ]]; then
-  echo "lint:chezmoi: home/.chezmoiscripts not found" >&2
+# must run from the repo root
+if [[ ! -d home ]]; then
+  echo "lint:chezmoi: home/ source directory not found" >&2
   exit 1
 fi
 
+failed=0
+
+# chezmoi authenticates with bitwarden when rendering templates that use it.
+# removing bw from PATH makes those templates skip the call instead.
+CHEZMOI=$(command -v chezmoi)
+LINT_PATH=""
+IFS=: read -ra dirs <<< "$PATH"
+for d in "${dirs[@]}"; do [[ -x "$d/bw" ]] || LINT_PATH+="${LINT_PATH:+:}$d"; done
+
+# render every template and shellcheck the ones that produce shell scripts
 while IFS= read -r -d '' tmpl; do
-  if ! rendered=$(chezmoi execute-template --source home -f "$tmpl"); then
+  if ! rendered=$(PATH="$LINT_PATH" "$CHEZMOI" execute-template --source home -f "$tmpl"); then
     echo "lint:chezmoi: $tmpl: template rendering failed" >&2
     failed=1
-  elif [[ "$tmpl" == *.sh.tmpl ]] && [ -n "$rendered" ]; then
-    if ! printf '%s\n' "$rendered" | shellcheck --shell bash -; then
+  # only check shell scripts that produced output
+  elif [[ "$tmpl" == *.sh.tmpl && -n "$rendered" ]]; then
+    if ! printf '%s\n' "$rendered" | shellcheck -; then
       echo "lint:chezmoi: $tmpl: shellcheck failed" >&2
       failed=1
     fi
   fi
-done < <(find home/.chezmoiscripts -name '*.tmpl' -print0)
+done < <(find home -name '*.tmpl' -not -name '.chezmoi.toml.tmpl' -print0)
 
-if ! chezmoi execute-template --source home --init \
-  --promptString "name=John Doe" --promptString email=john@example.com \
+# validate the init config template with mock prompt values
+if ! PATH="$LINT_PATH" "$CHEZMOI" execute-template --source home --init \
+  --promptString "name=John Doe" --promptString "email=john@example.com" \
   -f home/.chezmoi.toml.tmpl >/dev/null; then
   echo "lint:chezmoi: home/.chezmoi.toml.tmpl: template rendering failed" >&2
   failed=1
