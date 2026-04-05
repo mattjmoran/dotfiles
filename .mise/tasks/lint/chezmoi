@@ -17,9 +17,19 @@ LINT_PATH=""
 IFS=: read -ra dirs <<< "$PATH"
 for d in "${dirs[@]}"; do [[ -x "$d/bw" ]] || LINT_PATH+="${LINT_PATH:+:}$d"; done
 
+# mock config supplies [data] values that chezmoi init would normally prompt for
+mock_dir=$(mktemp -d)
+trap 'rm -rf -- "$mock_dir"' EXIT
+mock_config="$mock_dir/config.toml"
+cat > "$mock_config" <<'TOML'
+[data]
+name = "John Doe"
+email = "john@example.com"
+TOML
+
 # render every template and shellcheck the ones that produce shell scripts
 while IFS= read -r -d '' tmpl; do
-  if ! rendered=$(PATH="$LINT_PATH" "$CHEZMOI" execute-template --source home -f "$tmpl"); then
+  if ! rendered=$(PATH="$LINT_PATH" "$CHEZMOI" execute-template --config "$mock_config" --source home -f "$tmpl"); then
     echo "lint:chezmoi: $tmpl: template rendering failed" >&2
     failed=1
   # only check shell scripts that produced output
@@ -31,9 +41,8 @@ while IFS= read -r -d '' tmpl; do
   fi
 done < <(find home -name '*.tmpl' -not -name '.chezmoi.toml.tmpl' -print0)
 
-# validate the init config template with mock prompt values
-if ! PATH="$LINT_PATH" "$CHEZMOI" execute-template --source home --init \
-  --promptString "name=John Doe" --promptString "email=john@example.com" \
+# validate the init config template with the same mock data
+if ! PATH="$LINT_PATH" "$CHEZMOI" execute-template --config "$mock_config" --source home --init \
   -f home/.chezmoi.toml.tmpl >/dev/null; then
   echo "lint:chezmoi: home/.chezmoi.toml.tmpl: template rendering failed" >&2
   failed=1
