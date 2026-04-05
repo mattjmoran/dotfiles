@@ -1,0 +1,76 @@
+[user]
+    name = {{ .name }}
+    email = {{ .email }}
+
+[init]
+    defaultBranch = main
+
+[core]
+    excludesfile = ~/.gitignore
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+    pruneTags = true
+    all = true
+    fsckObjects = true
+
+[transfer]
+    fsckObjects = true
+
+[receive]
+    fsckObjects = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    mnemonicPrefix = true
+    renames = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+[rerere]
+    enabled = true
+    autoUpdate = true
+
+[commit]
+    verbose = true
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
+
+[column]
+    ui = auto
+
+[help]
+    autocorrect = prompt
+
+[blame]
+    ignoreRevsFile = .git-blame-ignore-revs
+
+{{ if eq .chezmoi.os "darwin" -}}
+[credential]
+    helper = osxkeychain
+{{ else if eq .chezmoi.os "linux" -}}
+[credential]
+    helper = cache
+{{ else if eq .chezmoi.os "windows" -}}
+[credential]
+    helper = manager
+{{ end -}}

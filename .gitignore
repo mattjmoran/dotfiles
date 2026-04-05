@@ -27,5 +27,8 @@
 !home/.chezmoiscripts/*/
 !home/.chezmoiscripts/**
 
+!home/dot_gitconfig.tmpl
+!home/dot_gitignore
+
 !home/private_dot_ssh/
 !home/private_dot_ssh/*
