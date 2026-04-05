@@ -9,5 +9,14 @@
 [packages.darwin.browser]
 "LibreWolf" = { source = "cask", package = "librewolf", url = "https://librewolf.net" }
 
+[packages.darwin.media]
+"VLC" = { source = "cask", package = "vlc", url = "https://www.videolan.org/vlc" }
+
+[packages.darwin.gaming]
+"Steam" = { source = "cask", package = "steam", url = "https://store.steampowered.com" }
+"Jagex Launcher" = { source = "cask", package = "jagex", url = "https://www.jagex.com/launcher" }
+"RuneLite" = { source = "cask", package = "runelite", url = "https://runelite.net" }
+
 [packages.darwin.security]
+"Bitwarden" = { source = "cask", package = "bitwarden", url = "https://bitwarden.com" }
 "Bitwarden CLI" = { source = "brew", package = "bitwarden-cli", url = "https://bitwarden.com" }

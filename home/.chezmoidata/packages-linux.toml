@@ -8,5 +8,14 @@
 [packages.linux.browser]
 "LibreWolf" = { source = "aur", package = "librewolf", url = "https://librewolf.net" }
 
+[packages.linux.media]
+"VLC" = { source = "pacman", package = "vlc", url = "https://www.videolan.org/vlc" }
+
+[packages.linux.gaming]
+"Steam" = { source = "pacman", package = "steam", url = "https://store.steampowered.com" }
+"Bolt Launcher" = { source = "aur", package = "bolt-launcher", url = "https://adamcake.com/bolt" }
+"RuneLite" = { source = "aur", package = "runelite", url = "https://runelite.net" }
+
 [packages.linux.security]
+"Bitwarden" = { source = "pacman", package = "bitwarden", url = "https://bitwarden.com" }
 "Bitwarden CLI" = { source = "pacman", package = "bitwarden-cli", url = "https://bitwarden.com" }

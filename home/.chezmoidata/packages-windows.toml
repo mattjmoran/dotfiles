@@ -4,5 +4,15 @@
 [packages.windows.browser]
 "LibreWolf" = { source = "winget", package = "LibreWolf.LibreWolf", url = "https://librewolf.net" }
 
+[packages.windows.media]
+"VLC" = { source = "winget", package = "VideoLAN.VLC", url = "https://www.videolan.org/vlc" }
+
+[packages.windows.gaming]
+"Steam" = { source = "winget", package = "Valve.Steam", url = "https://store.steampowered.com" }
+"Jagex Launcher" = { source = "winget", package = "Jagex.Runescape", url = "https://www.jagex.com/launcher" }
+"RuneLite" = { source = "winget", package = "RuneLite.RuneLite", url = "https://runelite.net" }
+"Riot Client" = { source = "winget", package = "RiotGames.RiotClient", url = "https://www.riotgames.com" }
+
 [packages.windows.security]
+"Bitwarden" = { source = "winget", package = "Bitwarden.Bitwarden", url = "https://bitwarden.com" }
 "Bitwarden CLI" = { source = "winget", package = "Bitwarden.CLI", url = "https://bitwarden.com" }
