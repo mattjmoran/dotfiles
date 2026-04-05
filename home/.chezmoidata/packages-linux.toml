@@ -1,3 +1,5 @@
-[packages.linux]
-pacman = ["bitwarden-cli"]
-aur = ["librewolf"]
+[packages.linux.browser]
+LibreWolf = { source = "aur", package = "librewolf", url = "https://librewolf.net" }
+
+[packages.linux.security]
+"Bitwarden CLI" = { source = "pacman", package = "bitwarden-cli", url = "https://bitwarden.com" }

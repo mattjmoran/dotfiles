@@ -1,13 +1,28 @@
 {{- if eq .chezmoi.os "linux" -}}
+
 #!/usr/bin/env bash
 # packages hash: {{ include ".chezmoidata/packages-linux.toml" | sha256sum }}
 set -euo pipefail
 
-{{ if .packages.linux.pacman -}}
-sudo pacman -S --needed --noconfirm {{ range .packages.linux.pacman }}{{ . }} {{ end }}
+{{- $pacman := list -}}
+{{- $aur := list -}}
+
+{{- range $category, $entries := .packages.linux -}}
+{{-   range $name, $info := $entries -}}
+{{-     if eq $info.source "pacman" -}}
+{{-       $pacman = append $pacman $info.package -}}
+{{-     else if eq $info.source "aur" -}}
+{{-       $aur = append $aur $info.package -}}
+{{-     end -}}
+{{-   end -}}
+{{- end }}
+
+{{ if $pacman -}}
+sudo pacman -S --needed --noconfirm {{ range ($pacman | sortAlpha | uniq) }}{{ . }} {{ end }}
 {{ end -}}
 
-{{ if .packages.linux.aur -}}
-paru -S --needed --noconfirm --sudoloop {{ range .packages.linux.aur }}{{ . }} {{ end }}
+{{ if $aur -}}
+paru -S --needed --noconfirm --sudoloop {{ range ($aur | sortAlpha | uniq) }}{{ . }} {{ end }}
 {{ end -}}
+
 {{ end -}}

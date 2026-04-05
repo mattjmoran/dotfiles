@@ -1,4 +1,5 @@
-[packages.darwin]
-taps = []
-brews = ["bitwarden-cli"]
-casks = ["librewolf"]
+[packages.darwin.browser]
+LibreWolf = { source = "cask", package = "librewolf", url = "https://librewolf.net" }
+
+[packages.darwin.security]
+"Bitwarden CLI" = { source = "brew", package = "bitwarden-cli", url = "https://bitwarden.com" }

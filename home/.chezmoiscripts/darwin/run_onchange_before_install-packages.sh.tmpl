@@ -1,17 +1,39 @@
 {{- if eq .chezmoi.os "darwin" -}}
+
 #!/usr/bin/env bash
 # packages hash: {{ include ".chezmoidata/packages-darwin.toml" | sha256sum }}
 set -euo pipefail
 
 brew bundle --no-upgrade --file=/dev/stdin <<EOF
-{{ range .packages.darwin.taps -}}
+
+{{- $taps := list -}}
+{{- $brews := list -}}
+{{- $casks := list -}}
+
+{{- range $category, $entries := .packages.darwin -}}
+{{-   range $name, $info := $entries -}}
+{{-     if eq $info.source "tap" -}}
+{{-       $taps = append $taps $info.package -}}
+{{-     else if eq $info.source "brew" -}}
+{{-       $brews = append $brews $info.package -}}
+{{-     else if eq $info.source "cask" -}}
+{{-       $casks = append $casks $info.package -}}
+{{-     end -}}
+{{-   end -}}
+{{- end }}
+
+{{ range ($taps | sortAlpha | uniq) -}}
 tap "{{ . }}"
 {{ end -}}
-{{ range .packages.darwin.brews -}}
+
+{{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
 {{ end -}}
-{{ range .packages.darwin.casks -}}
+
+{{ range ($casks | sortAlpha | uniq) -}}
 cask "{{ . }}"
 {{ end -}}
+
 EOF
+
 {{ end -}}

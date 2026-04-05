@@ -1,2 +1,5 @@
-[packages.windows]
-winget = ["Bitwarden.CLI", "LibreWolf.LibreWolf"]
+[packages.windows.browser]
+LibreWolf = { source = "winget", package = "LibreWolf.LibreWolf", url = "https://librewolf.net" }
+
+[packages.windows.security]
+"Bitwarden CLI" = { source = "winget", package = "Bitwarden.CLI", url = "https://bitwarden.com" }
