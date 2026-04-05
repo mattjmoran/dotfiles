@@ -1,5 +1,8 @@
+[packages.windows.core]
+"Git" = { source = "winget", package = "Git.Git", url = "https://git-scm.com" }
+
 [packages.windows.browser]
-LibreWolf = { source = "winget", package = "LibreWolf.LibreWolf", url = "https://librewolf.net" }
+"LibreWolf" = { source = "winget", package = "LibreWolf.LibreWolf", url = "https://librewolf.net" }
 
 [packages.windows.security]
 "Bitwarden CLI" = { source = "winget", package = "Bitwarden.CLI", url = "https://bitwarden.com" }

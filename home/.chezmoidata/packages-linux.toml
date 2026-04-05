@@ -1,5 +1,12 @@
+[packages.linux.core]
+"Git" = { source = "pacman", package = "git", url = "https://git-scm.com" }
+"curl" = { source = "pacman", package = "curl", url = "https://curl.se" }
+"Wget" = { source = "pacman", package = "wget", url = "https://www.gnu.org/software/wget" }
+"tree" = { source = "pacman", package = "tree", url = "https://oldmanprogrammer.net/source.php?dir=projects/tree" }
+"htop" = { source = "pacman", package = "htop", url = "https://htop.dev" }
+
 [packages.linux.browser]
-LibreWolf = { source = "aur", package = "librewolf", url = "https://librewolf.net" }
+"LibreWolf" = { source = "aur", package = "librewolf", url = "https://librewolf.net" }
 
 [packages.linux.security]
 "Bitwarden CLI" = { source = "pacman", package = "bitwarden-cli", url = "https://bitwarden.com" }
